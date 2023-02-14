@@ -33,11 +33,11 @@ function getWarning() {
   );
 }
 function getError() {
-  return Notiflix.Notify.warning('Oops, there is no country with that name.');
+  return Notiflix.Notify.failure('Oops, there is no country with that name.');
 }
 
-function countryListBox(coutries) {
-  return coutries
+function countryListBox(countries) {
+  return countries
     .map(country => {
       return `<li class="country-list__item">
   <img class="country-list__flag" src="${country.flags.png}" alt="${country.name.official}" width = "40" />
