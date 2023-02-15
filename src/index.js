@@ -11,20 +11,18 @@ const DEBOUNCE_DELAY = 300;
 searchBoxEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function onInput(evt) {
-  evt.preventDefault();
-
   const country = evt.target.value.trim();
-
+  clearPage();
   if (!country) {
     return;
   }
-  clearData();
+
   fetchCountries(country).then(renderData).catch(getError);
 }
 
-function clearData() {
+function clearPage() {
   countryListEl.innerHTML = '';
-  searchBoxEl.focus();
+  countryInfoEl.innerHTML = '';
 }
 
 function getWarning() {
@@ -74,15 +72,11 @@ function countryInfoBox(countries) {
 function renderData(items) {
   if (items.length >= 10) {
     getWarning();
-    countryListEl.innerHTML = '';
-    countryInfoEl.innerHTML = '';
   } else if (items.length >= 2 && items.length < 10) {
     const markupList = countryListBox(items);
     countryListEl.insertAdjacentHTML('beforeend', markupList);
-    countryInfoEl.innerHTML = '';
   } else {
     const markupInfo = countryInfoBox(items);
     countryInfoEl.innerHTML = markupInfo;
-    countryListEl.innerHTML = '';
   }
 }
